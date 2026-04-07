@@ -1,6 +1,6 @@
 .calendar-card-shell {
-  min-height: 674px;
-  overflow: hidden;
+  min-height: min(74vh, 860px);
+  overflow: auto;
   border-radius: 8px;
   background: #f7f9fc;
 }
@@ -9,6 +9,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
   padding: 18px 22px 16px;
   border-bottom: 1px solid var(--line);
   background: #fff;
@@ -18,10 +20,12 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .date-pill {
-  min-width: 182px;
+  min-width: 170px;
   min-height: 42px;
   display: inline-flex;
   align-items: center;
@@ -100,6 +104,7 @@
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
+  min-width: 760px;
 }
 
 .weekdays {
@@ -110,14 +115,14 @@
 .weekdays div {
   padding: 15px 8px 13px;
   text-align: center;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   color: #2f3135;
   text-transform: uppercase;
 }
 
 .calendar-day {
-  min-height: 109px;
+  min-height: clamp(94px, 11vh, 150px);
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   padding: 10px 10px 12px;
@@ -142,7 +147,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 13px;
   margin-bottom: 8px;
   color: #222;
 }
@@ -166,11 +171,11 @@
 }
 
 .calendar-card {
-  min-height: 32px;
+  min-height: 36px;
   padding: 3px 6px 4px;
   background: var(--green);
   color: #1f2f20;
-  font-size: 9px;
+  font-size: 11px;
   line-height: 1.15;
   overflow: hidden;
   border-radius: 0;
@@ -195,8 +200,8 @@
 
 .calendar-card-status svg,
 .calendar-card-action svg {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   stroke: currentColor;
   fill: none;
   stroke-width: 1.8;
@@ -224,8 +229,8 @@
 }
 
 .calendar-card-action {
-  width: 11px;
-  height: 11px;
+  width: 14px;
+  height: 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -282,7 +287,84 @@
 
 @media (max-width: 900px) {
   .calendar-toolbar {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
+    padding: 14px;
+  }
+
+  .calendar-toolbar-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .calendar-card-shell {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .calendar-toolbar-right {
+    gap: 8px;
+  }
+
+  .date-pill,
+  .mode-pill,
+  .nav-square,
+  .today-btn {
+    min-height: 38px;
+  }
+
+  .date-pill {
+    min-width: 156px;
+  }
+
+  .calendar-owner {
+    font-size: 12px;
+  }
+
+  .calendar-day {
+    padding: 8px 8px 10px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .calendar-card-shell {
+    min-height: 80vh;
+  }
+
+  .calendar-toolbar {
+    padding: 22px 28px;
+  }
+
+  .date-pill {
+    min-width: 230px;
+    min-height: 50px;
+    font-size: 17px;
+  }
+
+  .mode-pill {
+    min-width: 126px;
+    min-height: 50px;
+    font-size: 17px;
+  }
+
+  .weekdays,
+  .calendar-grid {
+    min-width: 1120px;
+  }
+
+  .weekdays div {
+    font-size: 15px;
+    padding-top: 16px;
+    padding-bottom: 14px;
+  }
+
+  .calendar-day-header {
+    font-size: 15px;
+  }
+
+  .calendar-card {
+    font-size: 13px;
+    min-height: 44px;
   }
 }
