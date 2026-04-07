@@ -1,24 +1,27 @@
 .dashboard-shell {
-  padding: 22px 24px 20px;
-  border: 1px solid #d9dee5;
-  border-radius: 6px;
+  min-height: 674px;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 12px 10px;
+  border: 1px solid #d7dde5;
+  border-radius: 8px;
   background: #ffffff;
 }
 
 .dashboard-head h1 {
-  margin: 0 0 14px;
-  font-size: 16px;
+  margin: 0 0 10px;
+  font-size: 14px;
   font-weight: 600;
   color: #2d2f34;
 }
 
 .filters-bar {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr) 0.72fr auto 0.72fr auto;
+  grid-template-columns: minmax(0, 180px) minmax(0, 180px) 120px 24px 120px 72px;
   gap: 10px;
   align-items: center;
-  padding: 6px 8px;
-  margin-bottom: 14px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
   background: #f6f7f9;
   border: 1px solid #e7eaee;
   border-radius: 4px;
@@ -32,6 +35,7 @@
   background: #fff;
   padding: 0 9px;
   min-height: 29px;
+  min-width: 0;
 }
 
 .filter-symbol {
@@ -62,17 +66,21 @@
   border: 0;
   padding: 0 0 0 6px;
   background: transparent;
-  font-size: 10px;
-  color: #5f646c;
+  font-size: 9px;
+  color: #6a7078;
 }
 
 .date-separator {
   text-align: center;
   color: #747a83;
-  font-size: 11px;
+  font-size: 10px;
+  width: 24px;
 }
 
 .table-panel {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
   border: 1px solid #d6dce3;
   border-radius: 4px;
   overflow: hidden;
@@ -83,7 +91,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 9px 16px;
+  padding: 8px 16px;
   border-bottom: 1px solid #e1e6eb;
 }
 
@@ -93,57 +101,59 @@
 }
 
 .table-head h2 {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: #34373c;
 }
 
 .table-head p {
-  font-size: 10px;
+  font-size: 9px;
   color: #7f8791;
 }
 
 .table-wrap {
+  flex: 1 1 auto;
   overflow-x: auto;
-  min-height: 360px;
+  min-height: 0;
+  background: #fff;
 }
 
 .appointment-table {
   width: 100%;
-  min-width: 980px;
   border-collapse: collapse;
+  table-layout: fixed;
+  background: transparent;
 }
 
 .appointment-table thead th {
   background: #eef3f7;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
   text-align: left;
-  padding: 10px 16px;
+  padding: 9px 16px;
   color: #35383d;
   border-bottom: 1px solid #e1e6eb;
 }
 
+.appointment-table thead th:last-child {
+  text-align: center;
+}
+
 .appointment-table tbody td {
-  padding: 9px 16px;
-  font-size: 10px;
+  padding: 8px 16px;
+  font-size: 9px;
   color: #4e535a;
   border-bottom: 1px solid #e7ebef;
 }
 
 .appointment-table tbody tr {
-  height: 34px;
+  height: 32px;
 }
 
-.cell-patient,
-.cell-doctor,
-.cell-time {
+.appointment-table tbody td.cell-patient,
+.appointment-table tbody td.cell-doctor,
+.appointment-table tbody td.cell-time {
   color: #4f8cf6;
-}
-
-.cell-patient,
-.cell-doctor {
-  font-size: 10px;
 }
 
 .cell-hospital,
@@ -153,25 +163,33 @@
 }
 
 .cell-actions {
-  white-space: nowrap;
-  width: 64px;
+  width: 76px;
+  padding-left: 8px;
+  padding-right: 8px;
   text-align: center;
+}
+
+.action-group {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .table-icon-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   padding: 0;
   background: transparent;
   vertical-align: middle;
 }
 
 .table-icon-btn svg {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
   stroke: currentColor;
   fill: none;
   stroke-width: 1.65;
@@ -181,7 +199,6 @@
 
 .delete-link {
   color: #ff5a4f;
-  margin-left: 12px;
 }
 
 .edit-link {
@@ -190,7 +207,7 @@
 
 .filler-row td {
   padding: 0;
-  height: 34px;
+  height: 32px;
   border-bottom: 1px solid #e7ebef;
 }
 
@@ -202,9 +219,11 @@
 
 .update-btn {
   min-height: 29px;
-  padding: 5px 13px;
-  font-size: 10px;
+  padding: 5px 12px;
+  font-size: 9px;
   border-radius: 3px;
+  width: 72px;
+  justify-self: start;
 }
 
 @media (max-width: 980px) {

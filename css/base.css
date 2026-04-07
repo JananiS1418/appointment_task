@@ -56,15 +56,15 @@ textarea:focus {
 }
 
 .app-shell {
-  display: flex;
-  justify-content: center;
-  padding: 56px 18px;
+  display: block;
+  padding: 0;
 }
 
 .app-frame {
-  width: min(1262px, 100%);
+  width: 100%;
+  min-height: 100vh;
   background: var(--panel);
-  border: 1px solid #dcdcdc;
+  border: 0;
 }
 
 .topbar {
@@ -159,7 +159,8 @@ textarea:focus {
 .workspace {
   display: grid;
   grid-template-columns: 190px minmax(0, 1fr);
-  min-height: 674px;
+  height: calc(100vh - 60px);
+  transition: grid-template-columns 180ms ease;
 }
 
 .sidebar-flat {
@@ -167,6 +168,7 @@ textarea:focus {
   background: #fff;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .sidebar-toggle {
@@ -177,6 +179,7 @@ textarea:focus {
   color: #222;
   display: grid;
   place-items: center;
+  width: 100%;
 }
 
 .nav-list {
@@ -193,6 +196,7 @@ textarea:focus {
   font-size: 15px;
   font-weight: 500;
   border-left: 0;
+  white-space: nowrap;
 }
 
 .nav-btn.is-active {
@@ -217,6 +221,23 @@ textarea:focus {
   stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.workspace.sidebar-collapsed {
+  grid-template-columns: 68px minmax(0, 1fr);
+}
+
+.workspace.sidebar-collapsed .nav-btn {
+  justify-content: center;
+  padding: 16px 0;
+}
+
+.workspace.sidebar-collapsed .nav-btn span:last-child {
+  display: none;
+}
+
+.workspace.sidebar-collapsed .sidebar-toggle {
+  font-size: 26px;
 }
 
 .content-area-flat {

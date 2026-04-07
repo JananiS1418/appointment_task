@@ -33,8 +33,11 @@ const elements = {
   next: document.getElementById("nextMonthBtn"),
   today: document.getElementById("todayBtn"),
   openModalBtn: document.getElementById("openModalBtn"),
+  monthDropdownBtn: document.getElementById("monthDropdownBtn"),
+  monthMenu: document.getElementById("monthMenu"),
 };
 
+renderMonthMenu();
 renderWeekdays();
 bindEvents();
 renderCalendar();
@@ -63,6 +66,18 @@ function bindEvents() {
   elements.openModalBtn.addEventListener("click", () => {
     modalController.openNew();
   });
+
+  elements.monthDropdownBtn.addEventListener("click", () => {
+    const isOpen = !elements.monthMenu.classList.contains("hidden");
+    elements.monthMenu.classList.toggle("hidden", isOpen);
+    elements.monthDropdownBtn.setAttribute("aria-expanded", String(!isOpen));
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!elements.monthMenu.contains(event.target) && !elements.monthDropdownBtn.contains(event.target)) {
+      closeMonthMenu();
+    }
+  });
 }
 
 function renderWeekdays() {
@@ -83,6 +98,7 @@ function renderCalendar() {
   elements.label.textContent = formatToolbarDate(state.selectedDate);
   elements.doctor.textContent = state.appointments[0]?.doctorName || "Shared schedule";
   elements.grid.innerHTML = "";
+  syncMonthMenu();
 
   const start = calendarGridStart(state.currentMonth);
   const totalDays = getVisibleGridDayCount(state.currentMonth);
@@ -228,4 +244,41 @@ function formatEventTime(timeString) {
   const suffix = hourNumber >= 12 ? "pm" : "am";
   const twelveHour = hourNumber % 12 || 12;
   return `${String(twelveHour).padStart(2, "0")}:${minutes} ${suffix}`;
+}
+
+function renderMonthMenu() {
+  const monthNames = Array.from({ length: 12 }, (_, monthIndex) =>
+    new Date(2026, monthIndex, 1).toLocaleDateString("en-US", { month: "long" })
+  );
+
+  monthNames.forEach((monthName, monthIndex) => {
+    const option = document.createElement("button");
+    option.type = "button";
+    option.className = "month-option";
+    option.textContent = monthName;
+    option.setAttribute("role", "menuitem");
+    option.addEventListener("click", () => {
+      const next = new Date(state.currentMonth);
+      next.setMonth(monthIndex);
+      state.currentMonth = startOfMonth(next);
+      state.selectedDate = toDateInputValue(
+        new Date(next.getFullYear(), monthIndex, Math.min(new Date(`${state.selectedDate}T00:00:00`).getDate(), new Date(next.getFullYear(), monthIndex + 1, 0).getDate()))
+      );
+      closeMonthMenu();
+      renderCalendar();
+    });
+    elements.monthMenu.appendChild(option);
+  });
+}
+
+function syncMonthMenu() {
+  const options = elements.monthMenu.querySelectorAll(".month-option");
+  options.forEach((option, index) => {
+    option.classList.toggle("is-active", index === state.currentMonth.getMonth());
+  });
+}
+
+function closeMonthMenu() {
+  elements.monthMenu.classList.add("hidden");
+  elements.monthDropdownBtn.setAttribute("aria-expanded", "false");
 }

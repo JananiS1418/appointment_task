@@ -23,7 +23,7 @@
 
         <div class="workspace">
           <aside class="sidebar-flat">
-            <div class="sidebar-toggle" aria-hidden="true">&laquo;</div>
+            <button class="sidebar-toggle" type="button" aria-label="Collapse sidebar" aria-expanded="true">&laquo;</button>
             <nav class="nav-list">
               <a class="nav-btn" href="./calendar.html" aria-label="Calendar">
                 <span class="nav-icon" aria-hidden="true">
@@ -138,22 +138,24 @@
         <td class="cell-date"></td>
         <td class="cell-time"></td>
         <td class="cell-actions">
-          <button class="table-icon-btn edit-link" type="button" aria-label="Edit">
-            <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
-              <path d="M4.25 14.75 5.2 11.2 11.95 4.45l2.8 2.8L8 14l-3.75.75Z"></path>
-              <path d="M10.95 5.45 13.75 8.25"></path>
-            </svg>
-          </button>
-          <button class="table-icon-btn delete-link" type="button" aria-label="Delete">
-            <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
-              <path d="M5.5 6.25v8"></path>
-              <path d="M10 6.25v8"></path>
-              <path d="M14.5 6.25v8"></path>
-              <path d="M4.25 5.25h11.5"></path>
-              <path d="M7.25 5.25V3.75h5.5v1.5"></path>
-              <path d="M6 16.25h8"></path>
-            </svg>
-          </button>
+          <div class="action-group">
+            <button class="table-icon-btn edit-link" type="button" aria-label="Edit">
+              <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+                <path d="M4.25 14.75 5.2 11.2 11.95 4.45l2.8 2.8L8 14l-3.75.75Z"></path>
+                <path d="M10.95 5.45 13.75 8.25"></path>
+              </svg>
+            </button>
+            <button class="table-icon-btn delete-link" type="button" aria-label="Delete">
+              <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+                <path d="M5.5 6.25v8"></path>
+                <path d="M10 6.25v8"></path>
+                <path d="M14.5 6.25v8"></path>
+                <path d="M4.25 5.25h11.5"></path>
+                <path d="M7.25 5.25V3.75h5.5v1.5"></path>
+                <path d="M6 16.25h8"></path>
+              </svg>
+            </button>
+          </div>
         </td>
       </tr>
     </template>
@@ -282,6 +284,7 @@
         </form>
       </div>
     </div>
+    <script src="./js/sidebar.js"></script>
     <script src="./js/shared/modal.js"></script>
     <script src="./js/appointments.js"></script>
   </body>

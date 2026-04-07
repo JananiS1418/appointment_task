@@ -50,6 +50,42 @@
   font-weight: 500;
 }
 
+.month-dropdown {
+  position: relative;
+}
+
+.month-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 160px;
+  padding: 6px 0;
+  border: 1px solid #d8dbe1;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(23, 33, 52, 0.12);
+  z-index: 5;
+}
+
+.month-menu.hidden {
+  display: none;
+}
+
+.month-option {
+  width: 100%;
+  padding: 9px 14px;
+  text-align: left;
+  color: #444c56;
+  font-size: 13px;
+  background: transparent;
+}
+
+.month-option:hover,
+.month-option.is-active {
+  background: #eef5ff;
+  color: var(--blue);
+}
+
 .calendar-owner {
   text-align: center;
   padding: 9px 16px;

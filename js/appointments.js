@@ -34,6 +34,7 @@ const elements = {
   list: document.getElementById("appointmentList"),
   template: document.getElementById("appointmentRowTemplate"),
   openModalBtn: document.getElementById("openModalBtn"),
+  tableWrap: document.querySelector(".table-wrap"),
 };
 
 bootstrapFiltersFromQuery();
@@ -67,6 +68,8 @@ function bindEvents() {
   elements.openModalBtn.addEventListener("click", () => {
     modalController.openNew();
   });
+
+  window.addEventListener("resize", renderTable);
 }
 
 function handleFilterChange() {
@@ -88,7 +91,7 @@ function renderTable() {
   const filtered = filterAppointments(state.appointments, state.filters);
   elements.count.textContent = `${filtered.length} appointment${filtered.length === 1 ? "" : "s"}`;
   elements.list.innerHTML = "";
-  const targetVisibleRows = 8;
+  const targetVisibleRows = getTargetVisibleRows();
 
   if (filtered.length === 0) {
     const row = document.createElement("tr");
@@ -127,4 +130,11 @@ function appendFillerRows(count) {
     row.innerHTML = "<td></td><td></td><td></td><td></td><td></td><td></td><td></td>";
     elements.list.appendChild(row);
   }
+}
+
+function getTargetVisibleRows() {
+  const wrapHeight = elements.tableWrap?.clientHeight || 0;
+  const rowHeight = 34;
+  const visibleRows = Math.floor(wrapHeight / rowHeight);
+  return Math.max(8, visibleRows || 8);
 }

@@ -26,7 +26,7 @@
 
         <div class="workspace">
           <aside class="sidebar-flat">
-            <div class="sidebar-toggle" aria-hidden="true">&laquo;</div>
+            <button class="sidebar-toggle" type="button" aria-label="Collapse sidebar" aria-expanded="true">&laquo;</button>
             <nav class="nav-list">
               <a class="nav-btn is-active" href="./calendar.html">
                 <span class="nav-icon" aria-hidden="true">
@@ -80,11 +80,17 @@
                     </svg>
                   </button>
                   <button class="square-btn today-btn" id="todayBtn" type="button">Today</button>
-                  <button class="mode-pill" type="button">Month <span class="caret" aria-hidden="true">
-                    <svg viewBox="0 0 20 20" focusable="false">
-                      <path d="M6 8.25 10 12.25l4-4"></path>
-                    </svg>
-                  </span></button>
+                  <div class="month-dropdown">
+                    <button class="mode-pill" id="monthDropdownBtn" type="button" aria-haspopup="true" aria-expanded="false">
+                      <span>Month</span>
+                      <span class="caret" aria-hidden="true">
+                        <svg viewBox="0 0 20 20" focusable="false">
+                          <path d="M6 8.25 10 12.25l4-4"></path>
+                        </svg>
+                      </span>
+                    </button>
+                    <div class="month-menu hidden" id="monthMenu" role="menu" aria-label="Select month"></div>
+                  </div>
                 </div>
               </div>
 
@@ -243,6 +249,7 @@
     </div>
 
     <script src="./js/shared/app.js"></script>
+    <script src="./js/sidebar.js"></script>
     <script src="./js/shared/modal.js"></script>
     <script src="./js/calendar.js"></script>
   </body>
