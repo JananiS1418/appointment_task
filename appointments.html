@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CapMinds | Appointments</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./css/appointments.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="app-frame">
+        <header class="topbar">
+          <a class="brand-flat" href="./calendar.html">
+            <span class="brand-mark"></span>
+            <span class="brand-name">CapMinds</span>
+          </a>
+          <button class="primary-btn" id="openModalBtn" type="button">+ Book Appointment</button>
+        </header>
+
+        <div class="workspace">
+          <aside class="sidebar-flat">
+            <div class="sidebar-toggle" aria-hidden="true">&laquo;</div>
+            <nav class="nav-list">
+              <a class="nav-btn" href="./calendar.html" aria-label="Calendar">
+                <span class="nav-icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" focusable="false">
+                    <path d="M4.5 3.5v3"></path>
+                    <path d="M15.5 3.5v3"></path>
+                    <rect x="3.5" y="5.5" width="13" height="11" rx="1.5"></rect>
+                    <path d="M3.5 8.5h13"></path>
+                  </svg>
+                </span>
+                <span>Calendar</span>
+              </a>
+              <a class="nav-btn is-active" href="./appointments.html" aria-label="Dashboard">
+                <span class="nav-icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" focusable="false">
+                    <rect x="3.5" y="3.5" width="5" height="5"></rect>
+                    <rect x="11.5" y="3.5" width="5" height="5"></rect>
+                    <rect x="3.5" y="11.5" width="5" height="5"></rect>
+                    <rect x="11.5" y="11.5" width="5" height="5"></rect>
+                  </svg>
+                </span>
+                <span>Dashboard</span>
+              </a>
+            </nav>
+          </aside>
+
+          <main class="content-area-flat">
+            <section class="panel-card dashboard-shell">
+              <div class="dashboard-head">
+                <h1>Practice Dashboard</h1>
+              </div>
+
+              <section class="filters-bar">
+                <div class="filter-input search-input">
+                  <span class="filter-symbol" aria-hidden="true">
+                    <svg viewBox="0 0 20 20" focusable="false">
+                      <circle cx="8.5" cy="8.5" r="4.5"></circle>
+                      <path d="M12 12l4 4"></path>
+                    </svg>
+                  </span>
+                  <input id="searchPatient" type="search" placeholder="Patient Search" />
+                </div>
+                <div class="filter-input search-input">
+                  <span class="filter-symbol" aria-hidden="true">
+                    <svg viewBox="0 0 20 20" focusable="false">
+                      <circle cx="8.5" cy="8.5" r="4.5"></circle>
+                      <path d="M12 12l4 4"></path>
+                    </svg>
+                  </span>
+                  <input id="searchDoctor" type="search" placeholder="Doctor Search" />
+                </div>
+                <div class="filter-input">
+                  <span class="filter-symbol" aria-hidden="true">
+                    <svg viewBox="0 0 20 20" focusable="false">
+                      <path d="M5 3.75v2.5"></path>
+                      <path d="M15 3.75v2.5"></path>
+                      <rect x="4" y="5.25" width="12" height="10.75" rx="1.5"></rect>
+                      <path d="M4 8.25h12"></path>
+                    </svg>
+                  </span>
+                  <input id="filterFromDate" type="date" />
+                </div>
+                <div class="date-separator">to</div>
+                <div class="filter-input">
+                  <span class="filter-symbol" aria-hidden="true">
+                    <svg viewBox="0 0 20 20" focusable="false">
+                      <path d="M5 3.75v2.5"></path>
+                      <path d="M15 3.75v2.5"></path>
+                      <rect x="4" y="5.25" width="12" height="10.75" rx="1.5"></rect>
+                      <path d="M4 8.25h12"></path>
+                    </svg>
+                  </span>
+                  <input id="filterToDate" type="date" />
+                </div>
+                <button class="update-btn" id="clearFiltersBtn" type="button">Update</button>
+              </section>
+
+              <section class="table-panel">
+                <div class="table-head">
+                  <h2>Appointment Details</h2>
+                  <p id="resultsCount">0 appointments</p>
+                </div>
+                <div class="table-wrap">
+                  <table class="appointment-table">
+                    <thead>
+                      <tr>
+                        <th>Patient</th>
+                        <th>Doctor</th>
+                        <th>Hospital</th>
+                        <th>Specialty</th>
+                        <th>Select Date</th>
+                        <th>Select Time</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="appointmentList"></tbody>
+                  </table>
+                </div>
+              </section>
+            </section>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <template id="appointmentRowTemplate">
+      <tr>
+        <td class="cell-patient"></td>
+        <td class="cell-doctor"></td>
+        <td class="cell-hospital"></td>
+        <td class="cell-specialty"></td>
+        <td class="cell-date"></td>
+        <td class="cell-time"></td>
+        <td class="cell-actions">
+          <button class="table-icon-btn edit-link" type="button" aria-label="Edit">
+            <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+              <path d="M4.25 14.75 5.2 11.2 11.95 4.45l2.8 2.8L8 14l-3.75.75Z"></path>
+              <path d="M10.95 5.45 13.75 8.25"></path>
+            </svg>
+          </button>
+          <button class="table-icon-btn delete-link" type="button" aria-label="Delete">
+            <svg viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+              <path d="M5.5 6.25v8"></path>
+              <path d="M10 6.25v8"></path>
+              <path d="M14.5 6.25v8"></path>
+              <path d="M4.25 5.25h11.5"></path>
+              <path d="M7.25 5.25V3.75h5.5v1.5"></path>
+              <path d="M6 16.25h8"></path>
+            </svg>
+          </button>
+        </td>
+      </tr>
+    </template>
+
+    <script src="./js/shared/app.js"></script>
+    <div class="modal hidden" id="appointmentModal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-modal="true"></div>
+      <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-head">
+          <h2 id="modalTitle">Schedule Appointment</h2>
+          <button class="close-btn" type="button" data-close-modal="true" aria-label="Close">&#10005;</button>
+        </div>
+
+        <form id="appointmentForm" novalidate>
+          <input id="appointmentId" type="hidden" />
+          <div class="form-grid">
+            <label class="field-with-icon field-inline">
+              <span class="field-icon modal-icon" aria-hidden="true">
+                <svg viewBox="0 0 20 20" focusable="false">
+                  <circle cx="6.25" cy="6.25" r="2.5"></circle>
+                  <path d="M2.5 14.5c.55-2.05 2.2-3.5 4.25-3.5s3.7 1.45 4.25 3.5"></path>
+                  <circle cx="13.75" cy="7" r="2.1"></circle>
+                  <path d="M11.4 14.25c.4-1.6 1.75-2.75 3.45-2.75 1.2 0 2.25.55 2.9 1.5"></path>
+                </svg>
+              </span>
+              <div class="field-stack">
+                <div class="input-shell has-trailing">
+                  <input id="patientName" type="text" placeholder="Patient Name" required />
+                  <span class="input-trailing" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M6 8.25 10 12.25l4-4"></path></svg></span>
+                </div>
+                <small class="error-text"></small>
+              </div>
+            </label>
+            <label class="field-with-icon field-inline">
+              <span class="field-icon modal-icon" aria-hidden="true">
+                <svg viewBox="0 0 20 20" focusable="false">
+                  <circle cx="6.25" cy="6.25" r="2.5"></circle>
+                  <path d="M2.5 14.5c.55-2.05 2.2-3.5 4.25-3.5s3.7 1.45 4.25 3.5"></path>
+                  <circle cx="13.75" cy="7" r="2.1"></circle>
+                  <path d="M11.4 14.25c.4-1.6 1.75-2.75 3.45-2.75 1.2 0 2.25.55 2.9 1.5"></path>
+                </svg>
+              </span>
+              <div class="field-stack">
+                <div class="input-shell has-trailing">
+                  <input id="doctorName" type="text" placeholder="Doctor Name" required />
+                  <span class="input-trailing" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M6 8.25 10 12.25l4-4"></path></svg></span>
+                </div>
+                <small class="error-text"></small>
+              </div>
+            </label>
+            <label class="field-with-icon field-inline">
+              <span class="field-icon modal-icon" aria-hidden="true">
+                <svg viewBox="0 0 20 20" focusable="false">
+                  <path d="M10 16.25s4-4.25 4-7.3A4 4 0 0 0 6 8.95c0 3.05 4 7.3 4 7.3Z"></path>
+                  <circle cx="10" cy="8.75" r="1.35"></circle>
+                </svg>
+              </span>
+              <div class="field-stack">
+                <div class="input-shell has-trailing">
+                  <input id="hospitalName" type="text" placeholder="Hospital Name" required />
+                  <span class="input-trailing" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M6 8.25 10 12.25l4-4"></path></svg></span>
+                </div>
+                <small class="error-text"></small>
+              </div>
+            </label>
+            <label class="field-with-icon field-inline">
+              <span class="field-icon modal-icon" aria-hidden="true">
+                <svg viewBox="0 0 20 20" focusable="false">
+                  <circle cx="10" cy="5.25" r="2.45"></circle>
+                  <path d="M7.5 10.25c.8-.7 1.65-1.05 2.5-1.05s1.7.35 2.5 1.05"></path>
+                  <path d="M8.45 9.95v2.3"></path>
+                  <path d="M11.55 9.95v2.3"></path>
+                  <path d="M6.15 15.2c.55-1.45 1.85-2.3 3.85-2.3s3.3.85 3.85 2.3"></path>
+                  <path d="M5.8 16.1h8.4"></path>
+                </svg>
+              </span>
+              <div class="field-stack">
+                <div class="input-shell has-trailing">
+                  <input id="specialty" type="text" placeholder="Specialty" required />
+                  <span class="input-trailing" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M6 8.25 10 12.25l4-4"></path></svg></span>
+                </div>
+                <small class="error-text"></small>
+              </div>
+            </label>
+            <label class="field-with-icon field-inline">
+              <span class="field-icon modal-icon" aria-hidden="true">
+                <svg viewBox="0 0 20 20" focusable="false">
+                  <path d="M5 3.75v2.5"></path>
+                  <path d="M15 3.75v2.5"></path>
+                  <rect x="4" y="5.25" width="12" height="10.75" rx="1.5"></rect>
+                  <path d="M4 8.25h12"></path>
+                </svg>
+              </span>
+              <div class="field-stack">
+                <div class="input-shell has-trailing">
+                  <input id="appointmentDate" type="text" placeholder="Select Date" data-input-kind="date" required />
+                </div>
+                <small class="error-text"></small>
+              </div>
+            </label>
+            <label class="field-with-icon field-inline">
+              <span class="field-icon modal-icon" aria-hidden="true">
+                <svg viewBox="0 0 20 20" focusable="false">
+                  <circle cx="10" cy="10" r="6"></circle>
+                  <path d="M10 6.5v4l2.5 1.5"></path>
+                </svg>
+              </span>
+              <div class="field-stack">
+                <div class="input-shell has-trailing">
+                  <input id="appointmentTime" type="text" placeholder="Select Time" data-input-kind="time" required />
+                  <span class="input-trailing" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M10 6.5v4l2.5 1.5"></path><circle cx="10" cy="10" r="6"></circle></svg></span>
+                </div>
+                <small class="error-text"></small>
+              </div>
+            </label>
+            <label class="reason-field full-width">
+              <span>Reason</span>
+              <textarea id="reason" rows="4" required></textarea>
+              <small class="error-text"></small>
+            </label>
+          </div>
+          <div class="form-actions">
+            <button class="secondary-btn" type="button" data-close-modal="true">Cancel</button>
+            <button class="primary-btn" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="./js/shared/modal.js"></script>
+    <script src="./js/appointments.js"></script>
+  </body>
+</html>
+
+
